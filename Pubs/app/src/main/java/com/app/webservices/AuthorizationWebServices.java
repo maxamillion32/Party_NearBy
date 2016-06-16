@@ -179,6 +179,41 @@ public class AuthorizationWebServices {
 
 
 
+    //TODO USER FORGOT PASSWORD
+
+    public void EventListService(String email) {
+        JSONObject reqObj = new JSONObject();
+        try {
+            reqObj.put(Constant.KeyConstant.EMAIL_ID, email );
+            reqObj.put(Constant.KeyConstant.DEVICE_ID, Constant.KeyConstant.DEVICE_VALUE);
+
+            AppLog.Log("Forgot_Req: ", reqObj.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+        dialog.show();
+        String tag_reg = "json_obj_req";
+
+        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                Constant.ServiceType.FORGOT_PASSWORD, reqObj,
+                regSuccessListener(Constant.ServiceCodeAccess.FORGOT_PASSWORD), regErrorListener(Constant.ServiceCodeAccess.FORGOT_PASSWORD)) {
+        };
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonObjectRequest);
+    }
+
+
+
+
     public void GETFacebookProfileImage(String url) {
         AppLog.Log("url: ", url);
 
