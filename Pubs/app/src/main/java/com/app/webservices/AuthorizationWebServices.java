@@ -2,6 +2,7 @@ package com.app.webservices;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -50,6 +51,12 @@ public class AuthorizationWebServices {
         this.ctx = ctx;
         dialog = new ProgressDialog(ctx);
 
+    }
+
+    public AuthorizationWebServices(Context ctx, Fragment fragment) {
+        mdelegate = (WebServiceInterface) fragment;
+        this.ctx = ctx;
+        dialog = new ProgressDialog(ctx);
     }
 
 
@@ -181,17 +188,7 @@ public class AuthorizationWebServices {
 
     //TODO USER FORGOT PASSWORD
 
-    public void EventListService(String email) {
-        JSONObject reqObj = new JSONObject();
-        try {
-            reqObj.put(Constant.KeyConstant.EMAIL_ID, email );
-            reqObj.put(Constant.KeyConstant.DEVICE_ID, Constant.KeyConstant.DEVICE_VALUE);
-
-            AppLog.Log("Forgot_Req: ", reqObj.toString());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void EventListService() {
 
         dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
         dialog.show();
@@ -199,9 +196,9 @@ public class AuthorizationWebServices {
 
         RequestQueue queue = MyApplication.getInstance().getRequestQueue();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                Constant.ServiceType.FORGOT_PASSWORD, reqObj,
-                regSuccessListener(Constant.ServiceCodeAccess.FORGOT_PASSWORD), regErrorListener(Constant.ServiceCodeAccess.FORGOT_PASSWORD)) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                Constant.ServiceType.EVENT_LIST, null,
+                regSuccessListener(Constant.ServiceCodeAccess.EVENT_LIST), regErrorListener(Constant.ServiceCodeAccess.EVENT_LIST)) {
         };
 
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(

@@ -5,21 +5,27 @@ package com.app.pojo;
  */
 public class EventListItem {
 
-    int eventId;
+    String eventId;
     String eventName;
     String address;
     String dateTime;
     String price;
+    String thumbnail;
 
-    public EventListItem(int eventId, String eventName, String address, String dateTime, String price) {
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public EventListItem(String eventId, String eventName, String address, String dateTime, String price, String thumbnail) {
         this.eventId = eventId;
         this.eventName = eventName;
         this.address = address;
         this.dateTime = dateTime;
         this.price = price;
+        this.thumbnail = thumbnail;
     }
 
-    public int getEventId() {
+    public String getEventId() {
         return eventId;
     }
 

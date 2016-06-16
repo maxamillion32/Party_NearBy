@@ -21,11 +21,8 @@ public class Constant {
         public static final int FACEBOOK_PROFILE = 4;
         public static final int LOGIN = 5;
         public static final int REGISTRATION = 6;
-
-        public static final int EVENT_LIST_TODAY = 7;
-        public static final int EVENT_LIST_TOMORROW = 8;
-        public static final int EVENT_LIST_LATER = 9;
-        public static final int FORGOT_PASSWORD = 10;
+        public static final int EVENT_LIST = 7;
+        public static final int FORGOT_PASSWORD = 8;
     }
 
     public class ServiceType {
@@ -43,6 +40,8 @@ public class Constant {
         public static final String FORGOT_PASSWORD = BASE_URL + "/forgot_password.json";
         public static final String EDIT_USER_INFO = BASE_URL + "/edit/1.json";
 
+
+        public static final String EVENT_LIST = HOST_URL + "/Events/event_list.json"; //http://partynearby.com/phones/Events/event_list.json
         public static final String EVENT_DETAILS = HOST_URL + "/Events/event_details/"; //http://partynearby.com/phones/Events/event_details/1.json
         public static final String ADD_RATING = HOST_URL + "/Events/add_rating.json"; //http://partynearby.com/phones/Events/add_rating.json method post
         public static final String GET_RATINGS = HOST_URL + "/Events/rating/"; //http://partynearby.com/phones/Events/rating/1.json method get 1 is event id
