@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">PARTY NEARBY</string>
+
+    <string name="lbl_terms">Tearms &amp; Conditions</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    <string name="guest_list">Guest List</string>
+    <string name="event_details">Event detail</string>
+
+    <string name="plan">TARIFF PLAN</string>
+    <string name="settings">Settings</string>
+
+    <string name="plan_couple">1000</string>
+    <string name="app_search">Event search</string>
+
+    <string name="plan_female">0</string>
+
+    <string name="plan_male">1000</string>
+
+    <string name="total_payble">TOTAL PAYABLE</string>
+    <string name="lbl_general">GENERAL</string>
+    <string name="lbl_contactus">CONTACT US</string>
+    <string name="select_people">SELECT NUMBER OF PEOPLE</string>
+
+    <string name="lb_sign_in">Sign In</string>
+    <string name="lb_sign_up">Sign Up</string>
+    <string name="lb_forgot_password">Forgot Password</string>
+    <string name="lb_newuser">New here ? Sign Up</string>
+    <string name="lb_email">Email*</string>
+    <string name="lb_password">Password*</string>
+    <string name="progress_loading">Please wait...</string>
+
+    <string name="lb_facebook">Facebook</string>
+    <string name="lb_googleplus">Google</string>
+
+    <string name="lb_fname">First Name*</string>
+    <string name="lb_lname">Last Name*</string>
+    <string name="lb_contactno">Contact No*</string>
+    <string name="lb_dob">Date Of Birth (Optional)</string>
+    <string name="lb_anniversary">Anniversary (Optional)</string>
+
+
+
+    <string name="lbl_address">Hauz khas, ABC Hotel</string>
+    <string name="lbl_book">Book Now</string>
+    <string name="lbl_price">Free</string>
+    <string name="lbl_time">Sun, 8th May 11:00 PM</string>
+    <string name="lbl_skip">Skip</string>
+
+
+    <string name="error_invalid_input">Invalid Input</string>
+    <string name="error_email">Enter Email ID</string>
+    <string name="error_invalid_email">Invaid  Email ID</string>
+    <string name="error_password">Enter Password</string>
+    <string name="lb_login">Login</string>
+    <string name="lb_registration">Registration</string>
+
+    <string name="lb_search_result">Search Result</string>
+
+    <string name="lb_reviews">Reviews</string>
+    <string name="lb_nearby">NearBy</string>
+
+    <string name="error_fname">Enter First Name</string>
+    <string name="error_lname">Enter Last Name</string>
+    <string name="error_contact">Enter Contact Number</string>
+    <string name="error_contact_10">Enter 10 Digit Contact Number</string>
+
+
+    <string name="error_network">Unable To Connect Internet</string>
+
+    <string name="facebook_app_id">1732649813622740</string>
+
+
+    <string name="action_search">Search</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_friends">Friends</string>
+    <string name="nav_item_notifications">Messages</string>
+
+    <string name="menu_events">Events</string>
+    <string name="menu_nearby">Nearby</string>
+    <string name="menu_bookings">My Bookings</string>
+    <string name="menu_share">Share App</string>
+    <string name="menu_logout">Logout</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/menu_events</item>
+        <item>@string/menu_nearby</item>
+        <item>@string/menu_bookings</item>
+        <item>@string/menu_share</item>
+        <item>@string/settings</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_nav_events</item>
+        <item>@drawable/ic_location</item>
+        <item>@drawable/ic_profile_friends</item>
+        <item>@drawable/ic_nav_share</item>
+        <item>@drawable/ic_setting_light</item>
+    </array>
+
+    <string name="title_messages">Messages</string>
+    <string name="title_friends">Friends</string>
+    <string name="title_home">Home</string>
+
+    <!-- POLICies -->
+    <string name="lbl_policies">The user hereby consents, expresses and agrres that he has read and fully understand the Privacy
+        policy of events entertainment in respect of the app.
+
+    This is privacy and cookies policy for http://www.partynearby.com and the Party Nearby application.</string>
+
+</resources>
