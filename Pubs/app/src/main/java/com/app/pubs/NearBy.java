@@ -56,10 +56,7 @@ public class NearBy extends AppCompatActivity {
 
 
 
-            eventItemList.add((new EventListItem(1,"Today Pubs", "Noida", "Saturday 10:00 PM", "Free" )));
-            eventItemList.add((new EventListItem(2,"Rockey Pubs", "Hauz Khas", "Sunday 10:00 PM", "Free" )));
-            eventItemList.add((new EventListItem(3,"Atual Club", "Gurgaon", "Monday 10:00 PM", "100" )));
-            eventItemList.add((new EventListItem(4,"Today Pubs", "Hauz Khas", "Sunday 10:00 PM", "Free" )));
+            //eventItemList.add((new EventListItem("1","Today Pubs", "Noida", "Saturday 10:00 PM", "Free" , "")));
 
 
         //adapter = new RecycleAdaptor(list);

@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.app.adaptors.PubsDataAdaptor;
@@ -37,10 +39,17 @@ public class TodayFragment extends Fragment implements WebServiceInterface {
     int color;
     //RecycleAdaptor adapter;
     private PubsDataAdaptor mAdapter;
-    public static List<EventListItem> eventItemList;
+    public List<EventListItem> eventItemList;
     protected Handler handler;
 
-    AuthorizationWebServices auth;
+    public static AuthorizationWebServices auth;
+    private RecyclerView recyclerView;
+    private ProgressBar loader;
+    private TextView empty_txt;
+
+    public static TodayFragment newInstance(int page) {
+        return new TodayFragment();
+    }
 
     public TodayFragment() {
     }
@@ -59,69 +68,83 @@ public class TodayFragment extends Fragment implements WebServiceInterface {
         auth = new AuthorizationWebServices(getContext(), this);
 
         final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.frag_bg);
+        empty_txt = (TextView) view.findViewById(R.id.empty_txt);
         //frameLayout.setBackgroundColor(color);
         eventItemList = new ArrayList<EventListItem>();
         handler = new Handler();
 
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.frag_scrollableview);
+        recyclerView = (RecyclerView) view.findViewById(R.id.frag_scrollableview);
+
+        loader = (ProgressBar) view.findViewById(R.id.loader);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getBaseContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
+        AppLog.Log("Called", "1");
 
-      /*  List<String> list = new ArrayList<String>();
-        for (int i = 0; i < VersionModel.data.length; i++) {
-            list.add(VersionModel.data[i]);
-        }*/
         if (!CheckConnectivity.isConnected(getContext())) {
             Singleton.getInstance(getContext()).ShowToastMessage(getResources().getString(R.string.error_network), getActivity());
         } else {
-            auth.EventListService();
+            auth.EventListService("tod.json"); //tom.json //lat.json
         }
 
-        /*for (int i = 0; i < 10; i++) {
-            eventItemList.add(new EventListItem(1,"Today Pubs", "Hauz Khas", "Sunday 10:00 PM", "Free" ));
-
-        }
-
-
-        //adapter = new RecycleAdaptor(list);
-        mAdapter = new PubsDataAdaptor(eventItemList, recyclerView);
-        recyclerView.setAdapter(mAdapter);*/
 
         return view;
     }
 
     @Override
     public void requestCompleted(String obj, int serviceCode) {
-        AppLog.Log("Success_Data: ", obj.toString() +", "+serviceCode);
+        AppLog.Log("Success_Data_Today: ", obj.toString() +", "+serviceCode);
+        empty_txt.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        loader.setVisibility(View.GONE);
         if(serviceCode == Constant.ServiceCodeAccess.EVENT_LIST) {
             if(obj != null) {
+                eventItemList.clear();
+
                 String jsonRes = obj.toString();
                 try {
                     JSONObject jsonObject = new JSONObject(jsonRes);
                     JSONArray jsonArray = jsonObject.getJSONArray("event_lists");
 
-                    for(int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jObj = jsonArray.getJSONObject(i).getJSONObject("EventList");
-                        String id = jObj.getString("id");
-                        String event_image = jObj.getString("event_image");
-                        String event_name = jObj.getString("event_name");
-                        String event_address = jObj.getString("event_address");
-                        String event_time = jObj.getString("event_time");
-                        String event_datetime = jObj.getString("event_datetime");
-                        String event_contact_no = jObj.getString("event_contact_no");
-                        String event_description = jObj.getString("event_description");
-                        String entry_cost = jObj.getString("entry_cost");
-                        String entry_type = jObj.getString("entry_type");
-                        String discount = jObj.getString("discount");
-                        String date_added = jObj.getString("date_added");
-                        eventItemList.add(new EventListItem(id,event_name, event_address, event_datetime, entry_cost, event_image ));
+                    if(jsonArray != null) {
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jObj = jsonArray.getJSONObject(i).getJSONObject("EventList");
+                            String id = jObj.getString("id");
+                            String event_image = jObj.getString("event_image");
+                            String event_name = jObj.getString("event_name");
+                            String event_address = jObj.getString("event_address");
+                            String event_time = jObj.getString("event_time");
+                            String event_datetime = jObj.getString("event_datetime");
+                            String event_contact_no = jObj.getString("event_contact_no");
+                            String event_description = jObj.getString("event_description");
+                            String entry_cost = jObj.getString("entry_cost");
+                            String entry_type = jObj.getString("entry_type");
+                            String discount = jObj.getString("discount");
+                            String date_added = jObj.getString("date_added");
+                            eventItemList.add(new EventListItem(date_added, discount, entry_type, event_description,
+                                    event_contact_no, event_time, id, event_name, event_address,
+                                    event_datetime, entry_cost, event_image));
+                        }
+                    } else {
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                if(eventItemList.isEmpty()) {
+                    loader.setVisibility(View.GONE);
+                    empty_txt.setVisibility(View.VISIBLE);
+                    empty_txt.setText(getResources().getString(R.string.error_event));
+                } else {
+                    mAdapter = new PubsDataAdaptor(eventItemList, recyclerView);
+                    recyclerView.setAdapter(mAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
+
             }
         }
 
@@ -130,8 +153,11 @@ public class TodayFragment extends Fragment implements WebServiceInterface {
 
     @Override
     public void requestEndedWithError(VolleyError error, int errorCode) {
-
+        loader.setVisibility(View.GONE);
         AppLog.Log("LoginError: ", error.toString() +", "+ errorCode);
+
+        empty_txt.setVisibility(View.VISIBLE);
+        empty_txt.setText(getResources().getString(R.string.error_event));
 
     }
 }

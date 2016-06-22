@@ -5,6 +5,8 @@
     <string name="confirm_booking">Confirm Booking</string>
     <string name="guest_list">Guest List</string>
     <string name="event_details">Event detail</string>
+    <string name="error_connection">Please check your internet connection. Try again</string>
+    <string name="error_event">Oh. Event not available</string>
 
     <string name="plan">TARIFF PLAN</string>
     <string name="settings">Settings</string>

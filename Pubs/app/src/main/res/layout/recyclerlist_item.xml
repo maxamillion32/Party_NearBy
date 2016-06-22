@@ -26,7 +26,7 @@
             android:layout_marginStart="@dimen/text_padding"
             android:maxLines="3"
             android:padding="5dp"
-            android:text="@string/app_name"
+            android:text="NA"
             android:textColor="@android:color/primary_text_light"
             android:textStyle="normal"
             android:textSize="@dimen/font_size_large" />
@@ -47,16 +47,31 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/time_img"
-            android:text="Dadar, New Delhi, Wed, 10 AM - 9 PM"
+            android:text="NA"
             android:singleLine="false"
             android:textSize="12sp"
             android:layout_below="@+id/title"
             android:textColor="@android:color/primary_text_light" />
 
         <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/thumbnail"
+            android:layout_toLeftOf="@+id/price"
+            android:maxLines="3"
+            android:layout_marginRight="@dimen/text_padding"
+            android:padding="5dp"
+            android:drawableLeft="@drawable/rupee"
+            android:text="Discount"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="14dp" />
+
+        <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/rupee"
             android:layout_below="@+id/thumbnail"
             android:layout_alignParentRight="true"
             android:maxLines="3"

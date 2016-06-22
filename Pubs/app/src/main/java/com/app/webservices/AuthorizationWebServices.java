@@ -188,16 +188,17 @@ public class AuthorizationWebServices {
 
     //TODO USER FORGOT PASSWORD
 
-    public void EventListService() {
+    public void EventListService(String input) {
+        AppLog.Log("URL: ", Constant.ServiceType.EVENT_LIST + input);
 
-        dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
-        dialog.show();
+       // dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+        //dialog.show();
         String tag_reg = "json_obj_req";
 
         RequestQueue queue = MyApplication.getInstance().getRequestQueue();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                Constant.ServiceType.EVENT_LIST, null,
+                Constant.ServiceType.EVENT_LIST + input, null,
                 regSuccessListener(Constant.ServiceCodeAccess.EVENT_LIST), regErrorListener(Constant.ServiceCodeAccess.EVENT_LIST)) {
         };
 

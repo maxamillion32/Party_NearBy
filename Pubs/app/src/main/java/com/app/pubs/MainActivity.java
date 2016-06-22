@@ -9,6 +9,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private AppBarLayout htab_appbar;
     private SessionManager sessionManager;
+    private  TabLayout tabLayout;
+    private TodayFragment todayFragment;
+    private TomorrowFragment tomorrowFragment;
+    private LaterFragment laterFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("Pubs Nearby");
-            getSupportActionBar().setIcon(R.drawable.logo);
+            //getSupportActionBar().setIcon(R.drawable.logo);
             //toolbar.setNavigationIcon(R.drawable.logo);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -69,18 +75,48 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
 
     void inItWidget() {
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
+       final ViewPager viewPager = (ViewPager) findViewById(R.id.htab_viewpager);
         setupViewPager(viewPager);
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.htab_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+       // viewPager.setOffscreenPageLimit(2);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                AppLog.Log("tab_getPosition: ", tab.getPosition() +"");
+                viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition() == 0) {
+                    //TodayFragment.auth.EventListService("tod.json");
+
+                } else if(tab.getPosition() == 1) {
+                   //TomorrowFragment.auth.EventListService("tom.json");
+
+                } else if(tab.getPosition() == 2) {
+                    //LaterFragment.auth.EventListService("lat.json");
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.htab_collapse_toolbar);
         collapsingToolbarLayout.setTitleEnabled(false);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.header);
+                R.drawable.header_1);
 
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @SuppressWarnings("ResourceType")
@@ -95,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         });
 
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+       /* tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
@@ -125,19 +161,54 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
+        });*/
+
 
 
     }
+/*
+    private void setCurrentTabFragment(int tabPosition)
+    {
+        switch (tabPosition)
+        {
+            case 0 :
+                replaceFragment(todayFragment);
+                break;
+            case 1 :
+                replaceFragment(tomorrowFragment);
+                break;
+            case 2 :
+                replaceFragment(laterFragment);
+                break;
+        }
+    }*/
 
+/*    private void setupTabLayout() {
+        todayFragment = new TodayFragment();
+        tomorrowFragment = new TomorrowFragment();
+        laterFragment = new LaterFragment();
+        tabLayout.addTab(tabLayout.newTab().setText("TODAY"));
+        tabLayout.addTab(tabLayout.newTab().setText("TOMORROW"));
+        tabLayout.addTab(tabLayout.newTab().setText("LATER"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    }*/
 
-    private void setupViewPager(ViewPager viewPager) {
+   private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new TodayFragment(getResources().getColor(R.color.white)), "TODAY"); //accent_material_light
         adapter.addFrag(new TomorrowFragment(getResources().getColor(R.color.white)), "TOMORROW"); //ripple_material_light
         adapter.addFrag(new LaterFragment(getResources().getColor(R.color.white)), "LATER"); //button_material_dark
         viewPager.setAdapter(adapter);
     }
+
+
+/*    public void replaceFragment(Fragment fragment) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frame_container, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.commit();
+    }*/
 
 
     @Override

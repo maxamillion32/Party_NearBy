@@ -19,6 +19,10 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -302,6 +306,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/teal2"
                         android:textStyle="bold"
+                        android:layout_marginRight="5dp"
                         android:drawableLeft="@drawable/rupee"
                         android:layout_alignParentRight="true"
                         android:text="@string/plan_female"
@@ -337,5 +342,7 @@
 
 
         </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
+
 </RelativeLayout>

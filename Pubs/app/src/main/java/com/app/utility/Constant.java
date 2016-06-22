@@ -40,8 +40,7 @@ public class Constant {
         public static final String FORGOT_PASSWORD = BASE_URL + "/forgot_password.json";
         public static final String EDIT_USER_INFO = BASE_URL + "/edit/1.json";
 
-
-        public static final String EVENT_LIST = HOST_URL + "/Events/event_list.json"; //http://partynearby.com/phones/Events/event_list.json
+        public static final String EVENT_LIST = HOST_URL + "/Events/event_list/"; //http://partynearby.com/phones/Events/event_list.json
         public static final String EVENT_DETAILS = HOST_URL + "/Events/event_details/"; //http://partynearby.com/phones/Events/event_details/1.json
         public static final String ADD_RATING = HOST_URL + "/Events/add_rating.json"; //http://partynearby.com/phones/Events/add_rating.json method post
         public static final String GET_RATINGS = HOST_URL + "/Events/rating/"; //http://partynearby.com/phones/Events/rating/1.json method get 1 is event id

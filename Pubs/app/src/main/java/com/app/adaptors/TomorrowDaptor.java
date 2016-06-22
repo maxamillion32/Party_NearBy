@@ -21,13 +21,15 @@ import com.app.pubs.Booking;
 import com.app.pubs.EventDetails;
 import com.app.pubs.Login;
 import com.app.pubs.R;
-import com.app.utility.AppLog;
 import com.app.utility.SessionManager;
 import com.app.utility.Singleton;
 
 import java.util.List;
 
-public class PubsDataAdaptor extends RecyclerView.Adapter {
+/**
+ * Created by thinksysuser on 17-06-2016.
+ */
+public class TomorrowDaptor  extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
@@ -41,7 +43,7 @@ public class PubsDataAdaptor extends RecyclerView.Adapter {
     private OnLoadMoreListener onLoadMoreListener;
     private static SessionManager sessionManager;
 
-    public PubsDataAdaptor(List<EventListItem> medicines, RecyclerView recyclerView) {
+    public TomorrowDaptor(List<EventListItem> medicines, RecyclerView recyclerView) {
         medicineList = medicines;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
