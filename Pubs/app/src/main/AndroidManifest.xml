@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.pubs">
 
+    <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+
     <!-- to get location using NETWORK -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -21,7 +23,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Splash"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name">
 
             <intent-filter>

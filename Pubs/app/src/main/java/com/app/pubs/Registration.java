@@ -138,7 +138,7 @@ public class Registration  extends AppCompatActivity implements View.OnClickList
 
                 if (!CheckConnectivity.isConnected(mContext)) {
                     Singleton.getInstance(mContext).hideSoftKeyboard(this);
-                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network), mContext);
+                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network_title), mContext);
                     return;
                 }
 

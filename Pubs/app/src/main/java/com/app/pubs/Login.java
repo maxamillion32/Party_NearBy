@@ -401,7 +401,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, We
 
                 if (!CheckConnectivity.isConnected(mContext)) {
                     Singleton.getInstance(mContext).hideSoftKeyboard(this);
-                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network), mContext);
+                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network_title), mContext);
                     return;
                 }
 
@@ -414,7 +414,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, We
             case R.id.facebook:
                 if (!CheckConnectivity.isConnected(mContext)) {
                     Singleton.getInstance(mContext).hideSoftKeyboard(this);
-                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network), mContext);
+                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network_title), mContext);
                     return;
                 }
                 login_button_facebook.performClick();
@@ -423,7 +423,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, We
             case R.id.btn_sign_in:
                 if (!CheckConnectivity.isConnected(mContext)) {
                     Singleton.getInstance(mContext).hideSoftKeyboard(this);
-                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network), mContext);
+                    Singleton.getInstance(mContext).ShowToastMessage(getResources().getString(R.string.error_network_title), mContext);
                     return;
                 }
 

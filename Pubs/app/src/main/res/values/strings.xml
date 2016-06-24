@@ -67,7 +67,9 @@
     <string name="error_contact_10">Enter 10 Digit Contact Number</string>
 
 
-    <string name="error_network">Unable To Connect Internet</string>
+    <string name="error_network_title"><b>NO INTERNET CONNECTION</b></string>
+    <string name="error_network_msg">Sorry, looks like there is no internet connection. Please check your Wi-Fi or data connectivity.</string>
+    <string name="try_again">TRY AGAIN</string>
 
     <string name="facebook_app_id">1732649813622740</string>
 
