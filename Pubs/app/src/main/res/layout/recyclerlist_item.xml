@@ -9,19 +9,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/thumbnail"
+        <FrameLayout
+            android:id="@+id/fram_img"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/header_2" />
+            android:layout_height="wrap_content">
+
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitXY"
+                android:background="@drawable/app_icon" />
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fram_img"
+                android:layout_toLeftOf="@+id/price"
+                android:maxLines="3"
+                android:background="@drawable/shadow"
+                android:layout_marginRight="@dimen/text_padding"
+                android:padding="5dp"
+                android:drawableLeft="@drawable/rupee"
+                android:text="Discount"
+                android:textColor="@android:color/white"
+                android:textSize="14dp"
+                />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/thumbnail"
+            android:layout_below="@+id/fram_img"
             android:layout_marginLeft="@dimen/text_padding"
             android:layout_marginStart="@dimen/text_padding"
             android:maxLines="3"
@@ -54,25 +79,24 @@
             android:textColor="@android:color/primary_text_light" />
 
         <TextView
-            android:id="@+id/discount"
-            android:layout_width="wrap_content"
+            android:id="@+id/time"
+            android:paddingLeft="@dimen/text_padding"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/thumbnail"
-            android:layout_toLeftOf="@+id/price"
-            android:maxLines="3"
-            android:layout_marginRight="@dimen/text_padding"
-            android:padding="5dp"
-            android:drawableLeft="@drawable/rupee"
-            android:text="Discount"
-            android:textColor="@android:color/primary_text_light"
-            android:textSize="14dp" />
+            android:layout_toRightOf="@+id/time_img"
+            android:text="NA"
+            android:singleLine="false"
+            android:textSize="12sp"
+            android:layout_below="@+id/address"
+            android:textColor="@android:color/primary_text_light" />
+
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/rupee"
-            android:layout_below="@+id/thumbnail"
+            android:layout_below="@+id/fram_img"
             android:layout_alignParentRight="true"
             android:maxLines="3"
             android:layout_marginRight="@dimen/text_padding"

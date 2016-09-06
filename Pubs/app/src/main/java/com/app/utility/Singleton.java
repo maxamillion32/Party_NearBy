@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.app.pubs.R;
+import com.app.partynearby.R;
 
 /**
  * Created by ram on 19/05/16.
@@ -24,7 +24,19 @@ public class Singleton {
     public String userPhoto = null;
     public String userDOB = null;
     public String userEmail = null;
-    public Drawable userDrawable = null;
+
+
+    public String ev_id = null;
+    public String ev_name = null;
+    public String ev_thumbnail = null;
+    public String ev_date = null;
+    public String ev_time = null;
+    public String ev_desc = null;
+    public String ev_contact_no = null;
+    public String ev_address = null;
+    public String ev_cost = null;
+    public String ev_entrytype = null;
+
 
     private Singleton(Context context) {
         this.context = context;

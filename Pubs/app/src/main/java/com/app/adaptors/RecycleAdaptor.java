@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.app.pubs.Booking;
-import com.app.pubs.BookingHistory;
-import com.app.pubs.EventDetails;
-import com.app.pubs.R;
+import com.app.partynearby.Booking;
+import com.app.partynearby.BookingHistory;
+import com.app.partynearby.EventDetails;
+import com.app.partynearby.R;
 
 import java.util.ArrayList;
 import java.util.List;

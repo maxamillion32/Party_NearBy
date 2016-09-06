@@ -15,4 +15,10 @@
         android:orderInCategory="100"
         android:title="@string/lbl_skip"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/write_review"
+        android:orderInCategory="100"
+        android:title="@string/lbl_write_review"
+        app:showAsAction="never" />
 </menu>

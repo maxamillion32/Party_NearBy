@@ -1,6 +1,7 @@
 package com.app.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,17 +22,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.app.adaptors.PubsDataAdaptor;
 import com.app.adaptors.TomorrowDaptor;
 import com.app.interfaces.WebServiceInterface;
 import com.app.pojo.EventListItem;
-import com.app.pubs.MyApplication;
-import com.app.pubs.R;
+import com.app.partynearby.MyApplication;
+import com.app.partynearby.R;
 import com.app.utility.AppLog;
 import com.app.utility.CheckConnectivity;
 import com.app.utility.Constant;
 import com.app.utility.Singleton;
+import com.app.utility.VolleyImageUtlil;
 import com.app.webservices.AuthorizationWebServices;
 
 import org.json.JSONArray;
@@ -49,7 +52,7 @@ import java.util.Map;
 public class TomorrowFragment extends Fragment implements View.OnClickListener {
     int color;
 
-    private TomorrowDaptor mAdapter;
+    private PubsDataAdaptor mAdapter;
     public List<EventListItem> eventItemList;
     protected Handler handler;
 
@@ -79,7 +82,6 @@ public class TomorrowFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabs_framents, container, false);
 
-        //auth = new AuthorizationWebServices(getContext(), this);
 
         final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.frag_bg);
         loader = (ProgressBar) view.findViewById(R.id.loader);
@@ -207,20 +209,22 @@ public class TomorrowFragment extends Fragment implements View.OnClickListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        AppLog.Log("tom_response: ", response.toString());
+                        Activity activity = getActivity();
+                        if (activity != null && isAdded()) {
+                            AppLog.Log("tom_response: ", response.toString());
 
-                        empty_txt.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.GONE);
-                        loader.setVisibility(View.GONE);
-                        rl_network.setVisibility(View.GONE);
-                            if(response != null) {
+                            empty_txt.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
+                            loader.setVisibility(View.GONE);
+                            rl_network.setVisibility(View.GONE);
+                            if (response != null) {
                                 //eventItemList.clear();
                                 String jsonRes = response.toString();
                                 try {
                                     JSONObject jsonObject = new JSONObject(jsonRes);
                                     JSONArray jsonArray = jsonObject.getJSONArray("event_lists");
 
-                                    if(jsonArray != null) {
+                                    if (jsonArray != null) {
 
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             JSONObject jObj = jsonArray.getJSONObject(i).getJSONObject("EventList");
@@ -236,6 +240,10 @@ public class TomorrowFragment extends Fragment implements View.OnClickListener {
                                             String entry_type = jObj.getString("entry_type");
                                             String discount = jObj.getString("discount");
                                             String date_added = jObj.getString("date_added");
+
+                                            if (event_image != null && !event_image.isEmpty()) {
+                                                event_image = event_image.replaceAll(" ", "%20");
+                                            }
                                             eventItemList.add(new EventListItem(date_added, discount, entry_type, event_description,
                                                     event_contact_no, event_time, id, event_name, event_address,
                                                     event_datetime, entry_cost, event_image));
@@ -247,34 +255,39 @@ public class TomorrowFragment extends Fragment implements View.OnClickListener {
                                     e.printStackTrace();
                                 }
 
-                                if(eventItemList.isEmpty()) {
+                                if (eventItemList.isEmpty()) {
                                     loader.setVisibility(View.GONE);
                                     empty_txt.setVisibility(View.VISIBLE);
                                     empty_txt.setText(getResources().getString(R.string.error_event));
                                 } else {
-                                    mAdapter = new TomorrowDaptor(eventItemList, recyclerView);
+                                    mAdapter = new PubsDataAdaptor(eventItemList, recyclerView);
                                     recyclerView.setAdapter(mAdapter);
                                     recyclerView.setVisibility(View.VISIBLE);
                                 }
 
                             }
                         }
+                    }
 
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error != null) {
-                            if (error.networkResponse != null && error.networkResponse.data != null) {
-                                VolleyError newerror = new VolleyError(new String(error.networkResponse.data));
-                                error = newerror;
 
+                        Activity activity = getActivity();
+                        if (activity != null && isAdded()) {
+                            if (error != null) {
+                                if (error.networkResponse != null && error.networkResponse.data != null) {
+                                    VolleyError newerror = new VolleyError(new String(error.networkResponse.data));
+                                    error = newerror;
+
+                                }
+                                AppLog.Log("tom_error: ", error.toString());
+                                loader.setVisibility(View.GONE);
+                                rl_network.setVisibility(View.GONE);
+                                empty_txt.setVisibility(View.VISIBLE);
+                                empty_txt.setText(getResources().getString(R.string.error_event));
                             }
-                            AppLog.Log("tom_error: ", error.toString());
-                            loader.setVisibility(View.GONE);
-                            rl_network.setVisibility(View.GONE);
-                            empty_txt.setVisibility(View.VISIBLE);
-                            empty_txt.setText(getResources().getString(R.string.error_event));
                         }
                     }
                 })

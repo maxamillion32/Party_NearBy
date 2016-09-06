@@ -17,10 +17,10 @@ import android.widget.TextView;
 
 import com.app.interfaces.OnLoadMoreListener;
 import com.app.pojo.EventListItem;
-import com.app.pubs.Booking;
-import com.app.pubs.EventDetails;
-import com.app.pubs.Login;
-import com.app.pubs.R;
+import com.app.partynearby.Booking;
+import com.app.partynearby.EventDetails;
+import com.app.partynearby.Login;
+import com.app.partynearby.R;
 import com.app.utility.SessionManager;
 
 import java.util.List;

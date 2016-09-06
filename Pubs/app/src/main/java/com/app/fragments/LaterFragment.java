@@ -21,17 +21,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.app.adaptors.LaterAdaptor;
 import com.app.adaptors.PubsDataAdaptor;
 import com.app.interfaces.WebServiceInterface;
 import com.app.pojo.EventListItem;
-import com.app.pubs.MyApplication;
-import com.app.pubs.R;
+import com.app.partynearby.MyApplication;
+import com.app.partynearby.R;
 import com.app.utility.AppLog;
 import com.app.utility.CheckConnectivity;
 import com.app.utility.Constant;
 import com.app.utility.Singleton;
+import com.app.utility.VolleyImageUtlil;
 import com.app.webservices.AuthorizationWebServices;
 
 import org.json.JSONArray;
@@ -49,7 +51,7 @@ import java.util.Map;
 public class LaterFragment extends Fragment implements View.OnClickListener {
     int color;
 
-    private LaterAdaptor mAdapter;
+    private PubsDataAdaptor mAdapter;
     public List<EventListItem> eventItemList;
     protected Handler handler;
 
@@ -78,8 +80,6 @@ public class LaterFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabs_framents, container, false);
-
-        //auth = new AuthorizationWebServices(getContext(), this);
 
         final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.frag_bg);
         loader = (ProgressBar) view.findViewById(R.id.loader);
@@ -217,6 +217,10 @@ public class LaterFragment extends Fragment implements View.OnClickListener {
                                         String entry_type = jObj.getString("entry_type");
                                         String discount = jObj.getString("discount");
                                         String date_added = jObj.getString("date_added");
+
+                                        if(event_image != null && !event_image.isEmpty()) {
+                                            event_image = event_image.replaceAll(" ", "%20");
+                                        }
                                         eventItemList.add(new EventListItem(date_added, discount, entry_type, event_description,
                                                 event_contact_no, event_time, id,event_name, event_address,
                                                 event_datetime, entry_cost, event_image ));
@@ -226,7 +230,7 @@ public class LaterFragment extends Fragment implements View.OnClickListener {
                                 }
 
                                 //adapter = new RecycleAdaptor(list);
-                                mAdapter = new LaterAdaptor(eventItemList, recyclerView);
+                                mAdapter = new PubsDataAdaptor(eventItemList, recyclerView);
                                 recyclerView.setAdapter(mAdapter);
                             }
                         }

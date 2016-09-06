@@ -1,6 +1,7 @@
 package com.app.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,17 +22,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.app.adaptors.PubsDataAdaptor;
 import com.app.interfaces.WebServiceInterface;
 import com.app.pojo.EventListItem;
-import com.app.pubs.MyApplication;
-import com.app.pubs.R;
+import com.app.partynearby.MyApplication;
+import com.app.partynearby.R;
 import com.app.utility.AppLog;
 import com.app.utility.CheckConnectivity;
 import com.app.utility.Constant;
 import com.app.utility.SessionManager;
 import com.app.utility.Singleton;
+import com.app.utility.VolleyImageUtlil;
 import com.app.webservices.AuthorizationWebServices;
 
 import org.json.JSONArray;
@@ -53,12 +56,12 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
     public List<EventListItem> eventItemList;
     protected Handler handler;
 
-    //public static AuthorizationWebServices auth;
     private RecyclerView recyclerView;
     private ProgressBar loader;
     private TextView empty_txt;
     private LinearLayout rl_network;
     private Button try_again;
+    public static ImageLoader mImageLoader;
 
     public static TodayFragment newInstance(int page) {
         return new TodayFragment();
@@ -78,7 +81,8 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tabs_framents, container, false);
 
-        //auth = new AuthorizationWebServices(getContext(), this);
+        mImageLoader = VolleyImageUtlil.getInstance(getActivity().getApplicationContext())
+                .getImageLoader();
 
         final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.frag_bg);
         empty_txt = (TextView) view.findViewById(R.id.empty_txt);
@@ -190,7 +194,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
                     loader.setVisibility(View.GONE);
                     rl_network.setVisibility(View.VISIBLE);
                 } else {
-                    //auth.EventListService("tod.json"); //tom.json //lat.json
+                    GetTodayEventService();
                 }
                 break;
             default:
@@ -199,7 +203,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
     }
 
 
-    public void GetTodayEventService() {
+    private void GetTodayEventService() {
 
         //dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
         //dialog.show();
@@ -211,21 +215,24 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        AppLog.Log("tod_response: ", response.toString());
 
-                        empty_txt.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.GONE);
-                        loader.setVisibility(View.GONE);
-                        rl_network.setVisibility(View.GONE);
-                            if(response != null) {
-                                //eventItemList.clear();
+                        Activity activity = getActivity();
+                        if (activity != null && isAdded()) {
+                            AppLog.Log("tod_response: ", response.toString());
+
+                            empty_txt.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
+                            loader.setVisibility(View.GONE);
+                            rl_network.setVisibility(View.GONE);
+                            if (response != null) {
+                                eventItemList.clear();
 
                                 String jsonRes = response.toString();
                                 try {
                                     JSONObject jsonObject = new JSONObject(jsonRes);
                                     JSONArray jsonArray = jsonObject.getJSONArray("event_lists");
 
-                                    if(jsonArray != null) {
+                                    if (jsonArray != null) {
 
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             JSONObject jObj = jsonArray.getJSONObject(i).getJSONObject("EventList");
@@ -241,6 +248,10 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
                                             String entry_type = jObj.getString("entry_type");
                                             String discount = jObj.getString("discount");
                                             String date_added = jObj.getString("date_added");
+                                            if (event_image != null && !event_image.isEmpty()) {
+                                                event_image = event_image.replaceAll(" ", "%20");
+                                            }
+
                                             eventItemList.add(new EventListItem(date_added, discount, entry_type, event_description,
                                                     event_contact_no, event_time, id, event_name, event_address,
                                                     event_datetime, entry_cost, event_image));
@@ -252,7 +263,7 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
                                     e.printStackTrace();
                                 }
 
-                                if(eventItemList.isEmpty()) {
+                                if (eventItemList.isEmpty()) {
                                     loader.setVisibility(View.GONE);
                                     empty_txt.setVisibility(View.VISIBLE);
                                     empty_txt.setText(getResources().getString(R.string.error_event));
@@ -265,23 +276,27 @@ public class TodayFragment extends Fragment implements View.OnClickListener {
                             }
 
 
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error != null) {
-                            if (error.networkResponse != null && error.networkResponse.data != null) {
-                                VolleyError newerror = new VolleyError(new String(error.networkResponse.data));
-                                error = newerror;
+                        Activity activity = getActivity();
+                        if (activity != null && isAdded()) {
+                            if (error != null) {
+                                if (error.networkResponse != null && error.networkResponse.data != null) {
+                                    VolleyError newerror = new VolleyError(new String(error.networkResponse.data));
+                                    error = newerror;
 
+                                }
+                                AppLog.Log("tod_error: ", error.toString());
+                                loader.setVisibility(View.GONE);
+                                rl_network.setVisibility(View.GONE);
+
+                                empty_txt.setVisibility(View.VISIBLE);
+                                empty_txt.setText(getResources().getString(R.string.error_event));
                             }
-                            AppLog.Log("tod_error: ", error.toString());
-                            loader.setVisibility(View.GONE);
-                            rl_network.setVisibility(View.GONE);
-
-                            empty_txt.setVisibility(View.VISIBLE);
-                            empty_txt.setText(getResources().getString(R.string.error_event));
                         }
                     }
                 })

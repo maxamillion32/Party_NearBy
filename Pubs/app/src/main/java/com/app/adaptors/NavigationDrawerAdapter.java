@@ -17,10 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.pojo.NavDrawerItem;
-import com.app.pubs.BookingHistory;
-import com.app.pubs.MainActivity;
-import com.app.pubs.R;
-import com.app.pubs.SettingsActivity;
+import com.app.partynearby.BookingHistory;
+import com.app.partynearby.MainActivity;
+import com.app.partynearby.R;
+import com.app.partynearby.SettingsActivity;
 import com.app.utility.AppLog;
 
 import java.util.Collections;
@@ -60,7 +60,7 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
         holder.img.setImageResource(data.get(position).getImageIcon());
 
         //holder.img.setImageResource(current.getImageIcon());
-        //int id = context.getResources().getIdentifier("com.app.pubs:drawable/" + current.getImageIcon(), null, null);
+        //int id = context.getResources().getIdentifier("com.app.partynearby:drawable/" + current.getImageIcon(), null, null);
         //holder.img.setImageResource(id);
     }
 

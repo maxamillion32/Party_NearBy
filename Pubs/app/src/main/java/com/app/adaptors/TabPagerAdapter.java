@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.app.fragments.HistoryFragment;
 import com.app.fragments.UpcomingFragment;
 
 /**
@@ -28,8 +27,8 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 return new UpcomingFragment();
-            case 1:
-                return new HistoryFragment();
+           /* case 1:
+                return new HistoryFragment();*/
         }
         return null;
 
@@ -38,7 +37,7 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return 2; //No of Tabs
+        return 1; //No of Tabs
     }
 
 }

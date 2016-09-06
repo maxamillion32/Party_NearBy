@@ -8,12 +8,32 @@
         android:id="@+id/bar"
         layout="@layout/toolbar_w_shadow" />
 
+
+
+    <ProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="top|center"
+        android:layout_marginRight="5dp"
+
+        />
+
     <android.support.v7.widget.RecyclerView
+        android:visibility="visible"
         android:id="@+id/frag_scrollableview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
-
+    <TextView
+        android:id="@+id/empty_txt"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

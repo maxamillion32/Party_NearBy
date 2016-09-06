@@ -29,11 +29,12 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.app.adaptors.NavigationDrawerAdapter;
 import com.app.pojo.NavDrawerItem;
-import com.app.pubs.R;
+import com.app.partynearby.R;
 import com.app.utility.AppLog;
 import com.app.utility.SessionManager;
 import com.app.utility.Singleton;
 import com.app.utility.VolleyImageUtlil;
+import com.facebook.login.LoginManager;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -60,7 +61,8 @@ public class FragmentDrawer extends Fragment {
 
     private static TypedArray navMenuIcons = null;
     private FragmentDrawerListener drawerListener;
-    private TextView logout_lay;
+    private TextView logout;
+    private RelativeLayout logout_lay;
 
     public FragmentDrawer() {
 
@@ -115,7 +117,8 @@ public class FragmentDrawer extends Fragment {
 
         user_pic = (NetworkImageView) layout.findViewById(R.id.user_pic);
         user_name = (TextView) layout.findViewById(R.id.user_name);
-        logout_lay = (TextView) layout.findViewById(R.id.logout);
+        logout = (TextView) layout.findViewById(R.id.logout);
+        logout_lay = (RelativeLayout) layout.findViewById(R.id.logout_lay);
         logout_lay.setVisibility(View.GONE);
 
         String fname  = justPharmaUser.get(SessionManager.KEY_FNAME);
@@ -158,6 +161,10 @@ public class FragmentDrawer extends Fragment {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     // Delete Action
                                     userSession.logoutUser();
+                                    if(LoginManager.getInstance() != null) {
+                                        LoginManager.getInstance().logOut();
+                                    }
+
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {

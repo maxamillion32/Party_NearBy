@@ -1,3 +1,4 @@
+package com.app.fragments;/*
 package com.app.fragments;
 
 import android.annotation.SuppressLint;
@@ -13,14 +14,16 @@ import android.widget.FrameLayout;
 
 import com.app.adaptors.HistoryAdaptor;
 import com.app.pojo.BookingItem;
-import com.app.pubs.R;
+import com.app.partynearby.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
  * Created by ram on 28/05/16.
- */
+ *//*
+
 public class HistoryFragment extends Fragment {
     int color;
     //RecycleAdaptor adapter;
@@ -54,10 +57,12 @@ public class HistoryFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
 
-      /*  List<String> list = new ArrayList<String>();
+      */
+/*  List<String> list = new ArrayList<String>();
         for (int i = 0; i < VersionModel.data.length; i++) {
             list.add(VersionModel.data[i]);
-        }*/
+        }*//*
+
         for (int i = 0; i < 10; i++) {
             eventItemList.add(new BookingItem("1","History Event", "10:00 AM", "", "Hauz Khas", "Sunday 10:00 PM", "Free" ));
 
@@ -72,3 +77,4 @@ public class HistoryFragment extends Fragment {
     }
 }
 
+*/

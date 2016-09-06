@@ -9,14 +9,21 @@ public class ReviewItem {
     String rDatetime;
     String rStarCount;
     String eThumbnail;
+    String rDesc;
 
-    public ReviewItem(String rId, String rName, String rDatetime, String rStarCount, String eThumbnail) {
+    public ReviewItem(String rId, String rName, String rDesc, String rDatetime, String rStarCount, String eThumbnail) {
         this.rId = rId;
         this.rName = rName;
         this.rDatetime = rDatetime;
         this.rStarCount = rStarCount;
         this.eThumbnail = eThumbnail;
+        this.rDesc = rDesc;
     }
+
+    public String getrDesc() {
+        return rDesc;
+    }
+
 
     public String getrId() {
         return rId;

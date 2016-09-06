@@ -12,10 +12,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.app.fragments.TodayFragment;
+import com.app.fragments.UpcomingFragment;
 import com.app.interfaces.OnLoadMoreListener;
 import com.app.pojo.BookingItem;
-import com.app.pubs.Booking;
-import com.app.pubs.R;
+import com.app.pojo.HistoryItem;
+import com.app.partynearby.Booking;
+import com.app.partynearby.R;
+import com.app.utility.Constant;
 
 import java.util.List;
 
@@ -26,7 +32,7 @@ public class HistoryAdaptor extends RecyclerView.Adapter {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
-    private List<BookingItem> medicineList;
+    private List<HistoryItem> medicineList;
 
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -35,7 +41,7 @@ public class HistoryAdaptor extends RecyclerView.Adapter {
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
 
-    public HistoryAdaptor(List<BookingItem> medicines, RecyclerView recyclerView) {
+    public HistoryAdaptor(List<HistoryItem> medicines, RecyclerView recyclerView) {
         medicineList = medicines;
 
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
@@ -92,9 +98,61 @@ public class HistoryAdaptor extends RecyclerView.Adapter {
 
         if (holder instanceof PubsDataViewHolder) {
 
-            BookingItem singleNewItem=  medicineList.get(position);
+            HistoryItem singleNewItem=  medicineList.get(position);
 
-            ((PubsDataViewHolder) holder).title.setText(String.valueOf(singleNewItem.getEvent_name()));
+            String title = String.valueOf(singleNewItem.getTitle());
+            String address = String.valueOf(singleNewItem.getAddress());
+            String date = String.valueOf(singleNewItem.getDate());
+            String time = String.valueOf(singleNewItem.getTime());
+            String price = String.valueOf(singleNewItem.getPrice());
+            String entryType = String.valueOf(singleNewItem.getEntryType());
+            String ev_img = String.valueOf(singleNewItem.getImg());
+            String ticket_no = String.valueOf(singleNewItem.getTicketNo());
+
+            if(title != null && !title.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).title.setText(title);
+            }
+
+            if(address != null && !address.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).address.setText(address);
+            }
+
+            if(date != null && !date.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).datetime.setText(date);
+            }
+
+            if(time != null && !time.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).entrytime.setText(time);
+            }
+
+            if(price != null && !price.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).price.setText(price);
+            }
+
+            if(entryType != null && !entryType.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).book.setText(entryType);
+            }
+
+            if(ev_img != null && !ev_img.isEmpty()) {
+                // Instantiate the RequestQueue.
+                //Image URL - This can point to any image file supported by Android
+                final String url = Constant.ServiceType.IMAGE_BASE_URL+ev_img;
+                TodayFragment.mImageLoader.get(url, ImageLoader.getImageListener(((PubsDataViewHolder) holder).thumbnail,
+                        R.mipmap.ic_launcher, android.R.drawable
+                                .ic_dialog_alert));
+                ((PubsDataViewHolder) holder).thumbnail.setImageUrl(url, UpcomingFragment.mImageLoader);
+            }
+
+            if(ticket_no != null && !ticket_no.isEmpty()) {
+                ((PubsDataViewHolder) holder).ticket_no.setText(ticket_no);
+            }
+
 
 
         }
@@ -131,7 +189,7 @@ public class HistoryAdaptor extends RecyclerView.Adapter {
         CardView cardItemLayout;
         TextView title, address, price, datetime, entrytime, ticket_no;
         TextView book;
-        ImageView thumbnail;
+        NetworkImageView thumbnail;
         public BookingItem newItems;
 
         public PubsDataViewHolder(View v) {
@@ -146,7 +204,7 @@ public class HistoryAdaptor extends RecyclerView.Adapter {
             entrytime = (TextView) v.findViewById(R.id.entrytime);
             ticket_no = (TextView) v.findViewById(R.id.ticket_no);
 
-            thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
+            thumbnail = (NetworkImageView) v.findViewById(R.id.thumbnail);
 
 
         }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.app.pubs">
-
-    <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"-->
+    package="com.app.partynearby">
 
     <!-- to get location using NETWORK -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -15,10 +15,9 @@
 
     <application
         android:allowBackup="true"
-        android:name="com.app.pubs.MyApplication"
+        android:name="com.app.partynearby.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:debuggable="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -72,35 +71,35 @@
         </activity>
 
         <activity
-            android:name="com.app.pubs.EventDetails"
+            android:name="com.app.partynearby.EventDetails"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.app.pubs.Rating"
+            android:name="com.app.partynearby.Rating"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" />
         <activity
-            android:name="com.app.pubs.Booking"
+            android:name="com.app.partynearby.Booking"
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.app.pubs.SettingsActivity"
+            android:name="com.app.partynearby.SettingsActivity"
             android:configChanges="orientation|screenSize"
             android:label="@string/settings" />
 
         <activity
-            android:name="com.app.pubs.BookingHistory"
+            android:name="com.app.partynearby.BookingHistory"
             android:configChanges="orientation|screenSize"
             android:label="@string/guest_list" />
         <activity
-            android:name="com.app.pubs.ShareApp"
+            android:name="com.app.partynearby.ShareApp"
             android:configChanges="orientation|screenSize"
             android:label="@string/menu_share" />
 
         <activity
-            android:name="com.app.pubs.NearBy"
+            android:name="com.app.partynearby.NearBy"
             android:configChanges="orientation|screenSize" />
 
         <activity android:name="com.facebook.FacebookActivity"
@@ -113,6 +112,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

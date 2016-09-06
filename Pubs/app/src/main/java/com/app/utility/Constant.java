@@ -23,6 +23,10 @@ public class Constant {
         public static final int REGISTRATION = 6;
         public static final int EVENT_LIST = 7;
         public static final int FORGOT_PASSWORD = 8;
+        public static final int EVENT_DETAILS = 9;
+        public static final int EVENT_RATING = 10;
+        public static final int BOOK_EVENT = 11;
+        public static final int BOOK_HISTORY = 12;
     }
 
     public class ServiceType {
@@ -43,7 +47,14 @@ public class Constant {
         public static final String EVENT_LIST = HOST_URL + "/Events/event_list/"; //http://partynearby.com/phones/Events/event_list.json
         public static final String EVENT_DETAILS = HOST_URL + "/Events/event_details/"; //http://partynearby.com/phones/Events/event_details/1.json
         public static final String ADD_RATING = HOST_URL + "/Events/add_rating.json"; //http://partynearby.com/phones/Events/add_rating.json method post
+        public static final String IMAGE_BASE_URL = "http://partynearby.com/appAdmin/img/events/original/";
         public static final String GET_RATINGS = HOST_URL + "/Events/rating/"; //http://partynearby.com/phones/Events/rating/1.json method get 1 is event id
+        public static final String BOOK_EVENT = "http://partynearby.com/phones/Events/booking_add.json";
+        public static final String BOOKING_HISTORY = "http://partynearby.com/phones/Events/booking_history.json";
+        public static final String PROFILE_UPDATE = "http://partynearby.com/phones/Users/edit/{user_id}.json";
+
+        public static final String NEAR_BY = "http://partynearby.com/phones/Events/event_locate.json";
+        public static final String SEARCH_EVENT = "http://partynearby.com/phones/Events/search/";
     }
 
 
@@ -53,6 +64,10 @@ public class Constant {
         public static final String DEVICE_ID = "device_id";
 
         public static final String USER_ID = "user_id";
+        public static final String EVENT_ID = "event_id";
+        public static final String CEC = "couple_entry_count";
+        public static final String MEC = "male_entry_count";
+        public static final String FEC = "female_entry_count";
         public static final String ACCESS_TOKEN = "access_token";
         public static final String PROFILE_PIC = "profile_pic";
         public static final String FIRST_NAME = "first_name";
@@ -68,6 +83,9 @@ public class Constant {
         public static final String MESSAGE = "message";
 
         public static final String DEVICE_VALUE = "password";
+
+        public static final String LONGITUDE = "longitude";
+        public static final String LATITUDE = "latitude";
 
 
     }

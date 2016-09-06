@@ -35,19 +35,20 @@ public class EventListItem {
     String time;
     String contactNo;
     String desc;
-    String entryCost;
+    String entryType;
     String discount;
     String dateAdded;
     String price;
     String thumbnail;
 
 
-    public EventListItem(String dateAdded, String discount, String entryCost,
+    public EventListItem(String dateAdded, String discount, String entryType,
                          String desc, String contactNo, String time, String eventId, String eventName, String address,
                          String dateTime, String price, String thumbnail) {
+        super();
         this.dateAdded = dateAdded;
         this.discount = discount;
-        this.entryCost = entryCost;
+        this.entryType = entryType;
         this.desc = desc;
         this.contactNo = contactNo;
         this.time = time;
@@ -71,8 +72,8 @@ public class EventListItem {
         return desc;
     }
 
-    public String getEntryCost() {
-        return entryCost;
+    public String getEntryType() {
+        return entryType;
     }
 
     public String getDiscount() {

@@ -21,6 +21,8 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="activity_margin_half">8dp</dimen>
 
+    <dimen name="activity_margin_2">2dp</dimen>
+
 
     <!-- FONT SIZE -->
     <dimen name="font_size_xlarge">22.0dp</dimen>

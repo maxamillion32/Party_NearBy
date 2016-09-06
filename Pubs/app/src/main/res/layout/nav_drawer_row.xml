@@ -6,7 +6,6 @@
     android:clickable="true">
 
     <RelativeLayout
-        android:elevation="5dp"
         android:visibility="visible"
         android:id="@+id/rl_settings"
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
         <ImageView
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:id="@+id/img"/>
@@ -24,20 +23,21 @@
             android:layout_toRightOf="@+id/img"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
             android:text="Settings"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:padding="5dp"
+           android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textSize="15dp"
             android:textStyle="bold" />
 
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/img"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"/>
-
     </RelativeLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/white"/>
+
 
 </LinearLayout>

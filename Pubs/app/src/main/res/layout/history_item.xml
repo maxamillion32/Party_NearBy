@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="250dp"
@@ -36,6 +36,7 @@
             android:id="@+id/time_img"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="@dimen/text_padding"
             android:layout_marginStart="@dimen/text_padding"
             android:layout_below="@+id/title"
@@ -62,7 +63,6 @@
             android:maxLines="3"
             android:layout_marginRight="@dimen/text_padding"
             android:padding="5dp"
-            android:text="@string/lbl_price"
             android:textColor="@android:color/primary_text_light"
             android:textSize="14dp" />
 
@@ -74,8 +74,9 @@
             android:layout_below="@+id/price"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/text_padding"
-            android:drawableRight="@drawable/gest_female_booked"
             android:text="1"
+
+            android:layout_margin="5dp"
             android:gravity="center_vertical"
             android:drawablePadding="5dp"
             android:textColor="@color/blue_grey"
@@ -165,6 +166,7 @@
             android:layout_marginLeft="@dimen/text_padding"
             android:layout_marginStart="@dimen/text_padding"
             android:maxLines="3"
+            android:visibility="visible"
             android:padding="5dp"
             android:text="Ticket No"
             android:textColor="@android:color/primary_text_light"
@@ -181,6 +183,7 @@
             android:maxLines="3"
             android:layout_alignParentRight="true"
             android:padding="5dp"
+            android:visibility="visible"
             android:text="001P"
             android:textColor="@android:color/primary_text_light"
             android:textStyle="normal"

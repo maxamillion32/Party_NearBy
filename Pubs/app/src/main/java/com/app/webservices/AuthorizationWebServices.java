@@ -15,10 +15,11 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.app.interfaces.WebServiceInterface;
-import com.app.pubs.MyApplication;
-import com.app.pubs.R;
+import com.app.partynearby.MyApplication;
+import com.app.partynearby.R;
 import com.app.utility.AppLog;
 import com.app.utility.Constant;
+import com.app.utility.MyUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +44,7 @@ import java.util.Map;
 public class AuthorizationWebServices {
     private Context ctx;
     private ProgressDialog dialog;
-    private static WebServiceInterface mdelegate;
+    private WebServiceInterface mdelegate;
     private int mStatusCode = 0;
 
     public AuthorizationWebServices(Context ctx) {
@@ -52,6 +53,7 @@ public class AuthorizationWebServices {
         dialog = new ProgressDialog(ctx);
 
     }
+
 
     public AuthorizationWebServices(Context ctx, Fragment fragment) {
         mdelegate = (WebServiceInterface) fragment;
@@ -98,15 +100,21 @@ public class AuthorizationWebServices {
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 Constant.ServiceType.REGISTER, merged,
-                regSuccessListener(Constant.ServiceCodeAccess.REGISTRATION), regErrorListener(Constant.ServiceCodeAccess.REGISTRATION));
+                regSuccessListener(Constant.ServiceCodeAccess.REGISTRATION), regErrorListener(Constant.ServiceCodeAccess.REGISTRATION))
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return MyUtil.getCommonApiHeader();
+            }
+        };
+
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 Constant.MY_SOCKET_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsonObjectRequest);
     }
-
-
 
     //TODO USER LOGIN
 
@@ -142,8 +150,13 @@ public class AuthorizationWebServices {
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                     Constant.ServiceType.LOGIN, reqObj,
-                    regSuccessListener(Constant.ServiceCodeAccess.LOGIN), regErrorListener(Constant.ServiceCodeAccess.LOGIN)) {
-            };
+                    regSuccessListener(Constant.ServiceCodeAccess.LOGIN), regErrorListener(Constant.ServiceCodeAccess.LOGIN));
+           /* {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return MyUtil.getCommonApiHeader();
+                }
+            };*/
 
             jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                     Constant.MY_SOCKET_TIMEOUT_MS,
@@ -183,6 +196,54 @@ public class AuthorizationWebServices {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(jsonObjectRequest);
     }
+
+    //TODO Event details
+
+    public void EventDetailsService(int input) {
+
+       // dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+       // dialog.show();
+        String tag_reg = "json_obj_req";
+        String url = Constant.ServiceType.EVENT_DETAILS + input+ ".json";
+        AppLog.Log("URL>>> ", url);
+        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                url, null,
+                regSuccessListener(Constant.ServiceCodeAccess.EVENT_DETAILS), regErrorListener(Constant.ServiceCodeAccess.EVENT_DETAILS)) {
+        };
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonObjectRequest);
+    }
+
+
+    //TODO Event Ratings
+
+    public void EventRatingServie(int input) {
+
+        dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+        dialog.show();
+        String tag_reg = "json_obj_req";
+        String url = Constant.ServiceType.GET_RATINGS + input+ ".json";
+        AppLog.Log("URL>>> ", url);
+        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                url, null,
+                regSuccessListener(Constant.ServiceCodeAccess.EVENT_RATING), regErrorListener(Constant.ServiceCodeAccess.EVENT_RATING)) {
+        };
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonObjectRequest);
+    }
+
 
 
 
@@ -430,6 +491,71 @@ public class AuthorizationWebServices {
     }
 
 
+
+    //TODO BOOK EVENT
+
+
+    public void BookEventService(String uId, String eventId, String cEc, String fEc, String mEc) {
+        JSONObject reqObj = new JSONObject();
+        try {
+            reqObj.put(Constant.KeyConstant.USER_ID, uId);
+            reqObj.put(Constant.KeyConstant.EVENT_ID, eventId);
+            reqObj.put(Constant.KeyConstant.CEC, cEc);
+            reqObj.put(Constant.KeyConstant.FEC, fEc);
+            reqObj.put(Constant.KeyConstant.MEC, mEc);
+
+            AppLog.Log("EventBook_Req: ", reqObj.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+        dialog.show();
+        String tag_reg = "json_obj_req";
+
+        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                Constant.ServiceType.BOOK_EVENT, reqObj,
+                regSuccessListener(Constant.ServiceCodeAccess.BOOK_EVENT), regErrorListener(Constant.ServiceCodeAccess.BOOK_EVENT)) {
+        };
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonObjectRequest);
+    }
+
+    public void EventHistoryService(String uId) {
+        JSONObject reqObj = new JSONObject();
+        try {
+            reqObj.put(Constant.KeyConstant.USER_ID, uId);
+
+            AppLog.Log("EventHistory_Req: ", reqObj.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+        dialog.show();
+        String tag_reg = "json_obj_req";
+
+        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                Constant.ServiceType.BOOKING_HISTORY, reqObj,
+                regSuccessListener(Constant.ServiceCodeAccess.BOOK_HISTORY), regErrorListener(Constant.ServiceCodeAccess.BOOK_HISTORY)) {
+        };
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonObjectRequest);
+    }
 
 
 

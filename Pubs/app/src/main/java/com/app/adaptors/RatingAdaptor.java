@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.app.interfaces.OnLoadMoreListener;
 import com.app.pojo.ReviewItem;
-import com.app.pubs.R;
+import com.app.partynearby.R;
+import com.app.partynearby.Rating;
 
 import java.util.List;
 
@@ -91,7 +93,34 @@ public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
             ReviewItem singleNewItem=  medicineList.get(position);
 
-        ((PubsDataViewHolder) holder).name.setText(String.valueOf(singleNewItem.getrName()));
+            String thumbnail = String.valueOf(singleNewItem.geteThumbnail());
+            String name = String.valueOf(singleNewItem.getrName());
+            String desc = String.valueOf(singleNewItem.getrDesc());
+            String ratCount = String.valueOf(singleNewItem.getrStarCount());
+            String datetime = String.valueOf(singleNewItem.getrDatetime());
+
+            if(thumbnail != null && !thumbnail.isEmpty()) {
+
+            }
+
+            if(name != null && !name.isEmpty()) {
+                ((PubsDataViewHolder) holder).name.setText(name);
+            }
+
+            if(desc != null && !desc.isEmpty()) {
+                ((PubsDataViewHolder) holder).desc.setText(desc);
+            }
+
+            if(ratCount != null && !ratCount.isEmpty()) {
+
+            }
+
+            if(datetime != null && !datetime.isEmpty()) {
+
+                ((PubsDataViewHolder) holder).datetime.setText(datetime);
+
+            }
+
 
 
         }
@@ -126,8 +155,9 @@ public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
 //
 public static class PubsDataViewHolder extends RecyclerView.ViewHolder {
     CardView cardItemLayout;
-    TextView name;
+    TextView name, desc, rating_count, datetime;
     ImageView thumbnail;
+    RatingBar rating_bar;
     public ReviewItem newItems;
 
     public PubsDataViewHolder(View v) {
@@ -135,6 +165,11 @@ public static class PubsDataViewHolder extends RecyclerView.ViewHolder {
         cardItemLayout = (CardView) v.findViewById(R.id.cardlist_item);
         name = (TextView) v.findViewById(R.id.name);
         thumbnail = (ImageView) v.findViewById(R.id.thumbnail);
+
+        rating_bar = (RatingBar) v.findViewById(R.id.rating_bar);
+        desc = (TextView) v.findViewById(R.id.desc);
+        rating_count = (TextView) v.findViewById(R.id.rating_count);
+        datetime = (TextView) v.findViewById(R.id.datetime);
 
 
     }
