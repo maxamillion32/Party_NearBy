@@ -11,7 +11,7 @@ public class MyUtil {
     public static Map<String, String> getCommonApiHeader(){
         Map<String, String> headers = new HashMap<>();
         // Basic Authentication
-        headers.put("Content-Type", "application/json");
+       // headers.put("Content-Type", "application/json");
         return headers;
     }
 }

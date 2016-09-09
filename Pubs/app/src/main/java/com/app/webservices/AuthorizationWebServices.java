@@ -99,15 +99,17 @@ public class AuthorizationWebServices {
        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                Constant.ServiceType.REGISTER, merged,
-                regSuccessListener(Constant.ServiceCodeAccess.REGISTRATION), regErrorListener(Constant.ServiceCodeAccess.REGISTRATION))
+                Constant.ServiceType.REGISTER, reqObj,
+                regSuccessListener(Constant.ServiceCodeAccess.REGISTRATION), regErrorListener(Constant.ServiceCodeAccess.REGISTRATION));
 
-        {
+       /* {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                return MyUtil.getCommonApiHeader();
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                return headers;
             }
-        };
+        };*/
 
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
                 Constant.MY_SOCKET_TIMEOUT_MS,
@@ -116,7 +118,7 @@ public class AuthorizationWebServices {
         queue.add(jsonObjectRequest);
     }
 
-    //TODO USER LOGIN
+    //TODO USER LOGIN VIA FACEBOOK AND GOOGLE
 
     public void UserLoginRequest(String fname, String lname, String dob, int fbStatus, int googleStatus,  String email, String password
                                  , boolean terms) {
@@ -128,7 +130,7 @@ public class AuthorizationWebServices {
             reqObj.put(Constant.KeyConstant.LAST_NAME, lname );
             reqObj.put(Constant.KeyConstant.EMAIL_ID, email );
             reqObj.put(Constant.KeyConstant.DOB, dob );
-            //reqObj.put(Constant.KeyConstant.PASSWORD, password);
+            reqObj.put(Constant.KeyConstant.PASSWORD, password);
             reqObj.put(Constant.KeyConstant.DEVICE_ID, Constant.KeyConstant.DEVICE_VALUE);
             reqObj.put(Constant.KeyConstant.VIA_FB, fbStatus);
             reqObj.put(Constant.KeyConstant.VIA_GOOGLE, googleStatus);
@@ -163,6 +165,53 @@ public class AuthorizationWebServices {
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             queue.add(jsonObjectRequest);
+    }
+
+    public void UserMannualLoginRequest(String fname, String lname, String dob, int fbStatus, int googleStatus,  String email, String password
+            , boolean terms) {
+
+        JSONObject reqObj = new JSONObject();
+
+        try {
+            reqObj.put(Constant.KeyConstant.FIRST_NAME, fname );
+            reqObj.put(Constant.KeyConstant.LAST_NAME, lname );
+            reqObj.put(Constant.KeyConstant.EMAIL_ID, email );
+            reqObj.put(Constant.KeyConstant.DOB, dob );
+            //reqObj.put(Constant.KeyConstant.PASSWORD, password);
+            reqObj.put(Constant.KeyConstant.DEVICE_ID, Constant.KeyConstant.DEVICE_VALUE);
+            reqObj.put(Constant.KeyConstant.VIA_FB, fbStatus);
+            reqObj.put(Constant.KeyConstant.VIA_GOOGLE, googleStatus);
+            reqObj.put(Constant.KeyConstant.TERMS, terms);
+
+            AppLog.Log("Login_Req: ", reqObj.toString());
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.setMessage(ctx.getResources().getString(R.string.progress_loading));
+        dialog.show();
+        String tag_reg = "json_obj_req";
+
+        RequestQueue queue = MyApplication.getInstance().getRequestQueue();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                Constant.ServiceType.LOGIN, reqObj,
+                regSuccessListener(Constant.ServiceCodeAccess.LOGIN), regErrorListener(Constant.ServiceCodeAccess.LOGIN));
+           /* {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    return MyUtil.getCommonApiHeader();
+                }
+            };*/
+
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                Constant.MY_SOCKET_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(jsonObjectRequest);
     }
 
     //TODO USER FORGOT PASSWORD

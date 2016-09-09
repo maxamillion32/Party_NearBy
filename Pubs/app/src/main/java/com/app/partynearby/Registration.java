@@ -18,9 +18,13 @@ import com.android.volley.VolleyError;
 import com.app.interfaces.WebServiceInterface;
 import com.app.utility.AppLog;
 import com.app.utility.CheckConnectivity;
+import com.app.utility.Constant;
 import com.app.utility.Singleton;
 import com.app.utility.Validation;
 import com.app.webservices.AuthorizationWebServices;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by ram on 18/05/16.
@@ -187,12 +191,47 @@ public class Registration  extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void requestCompleted(String obj, int serviceCode ) {
-        AppLog.Log("RegSuccess", obj.toString());
+        if(obj != null) {
+            AppLog.Log("RegSuccess", obj);
+            if(serviceCode == Constant.ServiceCodeAccess.REGISTRATION) {
+                try {
+                    JSONObject jsonObject = new JSONObject(obj);
+                    String message = jsonObject.getString("message");
+                    if(message != null && message.equalsIgnoreCase("Created")) {
+                        Singleton.getInstance(mContext).ShowToastMessage("Registration successful. Please login", mContext);
+                        Intent main = new Intent(getApplicationContext(), Login.class);
+                        main.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        main.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        main.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(main);
+                    } else {
+                        Singleton.getInstance(mContext).ShowToastMessage("Registration Failed. Please try again", mContext);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
     public void requestEndedWithError(VolleyError error, int serviceCode ) {
-        AppLog.Log("RegError", error.toString());
+        if (error.networkResponse != null && error.networkResponse.data != null) {
+            VolleyError newerror = new VolleyError(new String(error.networkResponse.data));
+            error = newerror;
+
+        }
+            AppLog.Log("Reg_error: ", error.toString());
+        Singleton.getInstance(mContext).ShowToastMessage("Registration Failed. Please try again", mContext);
+            /*try {
+                JSONObject jsonObject = new JSONObject(error);
+                String getMessage = jsonObject.getString("message");
+                if(getMessage != null && getMessage.equalsIgnoreCase("Error")) {
+                    Singleton.getInstance(mContext).ShowToastMessage("Registration Failed. Please try again", mContext);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }*/
 
     }
 }

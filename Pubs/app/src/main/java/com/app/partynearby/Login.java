@@ -541,7 +541,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, We
                 }
             }
 
-            Singleton.getInstance(mContext).ShowToastMessage(responseMessage, mContext);
+            Singleton.getInstance(mContext).ShowToastMessage("Login Failed. Please try again", mContext);
         }
 
 

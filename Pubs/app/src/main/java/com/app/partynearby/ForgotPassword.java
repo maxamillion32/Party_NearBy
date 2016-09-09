@@ -121,8 +121,8 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
     @Override
     public void requestCompleted(String obj, int serviceCode) {
         if(obj != null) {
-            String responseData = obj.toString();
-            AppLog.Log("responseData", responseData);
+            AppLog.Log("responseData", obj);
+            Singleton.getInstance(mContext).ShowToastMessage("Success please check your email id"+"", mContext);
         }
 
     }
