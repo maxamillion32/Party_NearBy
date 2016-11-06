@@ -44,6 +44,7 @@
     <RelativeLayout
         android:id="@+id/logout_lay"
         android:padding="10dp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

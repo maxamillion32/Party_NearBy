@@ -100,6 +100,7 @@
         <item>@string/menu_bookings</item>
         <item>@string/menu_share</item>
         <item>@string/settings</item>
+        <item>@string/menu_logout</item>
     </string-array>
 
     <string-array name="spinner_list_item_array">
@@ -110,11 +111,12 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/about</item>
-        <item>@drawable/ic_nav_events</item>
-        <item>@drawable/ic_location</item>
-        <item>@drawable/ic_flight_24dp</item>
-        <item>@drawable/ic_nav_share</item>
-        <item>@drawable/ic_setting_light</item>
+        <item>@drawable/events</item>
+        <item>@drawable/nearby</item>
+        <item>@drawable/history</item>
+        <item>@drawable/share</item>
+        <item>@drawable/settings</item>
+        <item>@drawable/logout</item>
     </array>
 
     <string name="title_messages">Messages</string>

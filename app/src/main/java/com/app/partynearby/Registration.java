@@ -89,6 +89,19 @@ public class Registration  extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+
+        input_contact.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if(hasFocus) {
+                    input_contact.setText("+91");
+                    Selection.setSelection(input_contact.getText(), input_contact.getText().length());
+
+                }
+
+            }
+        });
     }
 
     @Override
@@ -147,7 +160,8 @@ public class Registration  extends AppCompatActivity implements View.OnClickList
                 }
 
                 AuthorizationWebServices awService = new AuthorizationWebServices(mContext);
-                awService.UserRegistrationRequest(getFirstName, getLastName, getContact, getEmail, getPass, getDob, getAnni, "","", true);
+                awService.UserRegistrationRequest(getFirstName, getLastName, getContact,getEmail, getPass, getDob,getAnni,
+                        "", "", true);
 
 
                 break;
@@ -205,7 +219,7 @@ public class Registration  extends AppCompatActivity implements View.OnClickList
                         main.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(main);
                     } else {
-                        Singleton.getInstance(mContext).ShowToastMessage("Registration Failed. Please try again", mContext);
+                        Singleton.getInstance(mContext).ShowToastMessage("Registration Failed. Either phone or email already registered.", mContext);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

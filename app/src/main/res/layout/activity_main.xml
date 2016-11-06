@@ -33,10 +33,11 @@
                 android:id="@+id/htab_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/banner_img"
+                android:src="@drawable/banner_img"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
+                app:layout_collapseMode="parallax"
+                android:contentDescription="@string/app_name" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/htab_toolbar"

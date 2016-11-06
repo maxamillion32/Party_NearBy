@@ -52,7 +52,7 @@ public class FragmentDrawer extends Fragment {
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
-    private static String[] titles = null;
+    private String[] titles = null;
     private NetworkImageView user_pic;
     private TextView user_name;
     private ImageLoader mImageLoader;
@@ -62,7 +62,7 @@ public class FragmentDrawer extends Fragment {
     private static TypedArray navMenuIcons = null;
     private FragmentDrawerListener drawerListener;
     private TextView logout;
-    private RelativeLayout logout_lay;
+    //private RelativeLayout logout_lay;
 
     public FragmentDrawer() {
 
@@ -72,7 +72,7 @@ public class FragmentDrawer extends Fragment {
         this.drawerListener = listener;
     }
 
-    public static List<NavDrawerItem> getData() {
+    public List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
 
 
@@ -118,8 +118,8 @@ public class FragmentDrawer extends Fragment {
         user_pic = (NetworkImageView) layout.findViewById(R.id.user_pic);
         user_name = (TextView) layout.findViewById(R.id.user_name);
         logout = (TextView) layout.findViewById(R.id.logout);
-        logout_lay = (RelativeLayout) layout.findViewById(R.id.logout_lay);
-        logout_lay.setVisibility(View.GONE);
+        //logout_lay = (RelativeLayout) layout.findViewById(R.id.logout_lay);
+        //logout_lay.setVisibility(View.GONE);
 
         String fname  = justPharmaUser.get(SessionManager.KEY_FNAME);
         String lname  = justPharmaUser.get(SessionManager.KEY_LNAME);
@@ -134,7 +134,7 @@ public class FragmentDrawer extends Fragment {
         if(Singleton.getInstance(getActivity().getApplicationContext()).userName != null
                 && !Singleton.getInstance(getActivity().getApplicationContext()).userName.isEmpty()) {
             user_name.setText(Singleton.getInstance(getActivity().getApplicationContext()).userName);
-            logout_lay.setVisibility(View.VISIBLE);
+            //logout_lay.setVisibility(View.VISIBLE);
         }
 
         mImageLoader = VolleyImageUtlil.getInstance(getActivity().getApplicationContext())
@@ -147,10 +147,9 @@ public class FragmentDrawer extends Fragment {
             mImageLoader.get(url, ImageLoader.getImageListener(user_pic,
                     R.drawable.default_user, R.drawable.default_user));
             user_pic.setImageUrl(url, mImageLoader);
-            logout_lay.setVisibility(View.VISIBLE);
 
 
-            logout_lay.setOnTouchListener(new View.OnTouchListener() {
+          /*  logout_lay.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 
@@ -183,7 +182,7 @@ public class FragmentDrawer extends Fragment {
                 }
 
 
-            });
+            });*/
 
 
         }

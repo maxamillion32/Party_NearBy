@@ -32,8 +32,7 @@
         android:id="@+id/eventImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/bg"/>
+        android:scaleType="fitXY" />
 
     <include layout="@layout/bottom_sheet"
         android:id="@+id/gmail_bottom_sheet"/>

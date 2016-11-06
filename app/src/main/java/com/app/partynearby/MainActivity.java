@@ -1,15 +1,19 @@
 package com.app.partynearby;
 
+import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -38,6 +42,7 @@ import com.app.utility.AppTerms;
 import com.app.utility.SessionManager;
 import com.app.utility.Singleton;
 import com.app.utility.VolleyImageUtlil;
+import com.facebook.login.LoginManager;
 
 import java.util.HashMap;
 
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         collapsingToolbarLayout.setTitleEnabled(false);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.banner_img);
+                R.drawable.ic_collapse_00007);
 
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @SuppressWarnings("ResourceType")
@@ -161,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         displayView(position);
 
     }
+
 
     private void displayView(int position) {
         Fragment fragment = null;
@@ -223,6 +229,33 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             case 1:
                 //fragment = new HomeFragment();
                 //title = getString(R.string.title_home);
+                break;
+            case 6:
+                AlertDialog alertDialog = new AlertDialog.Builder(
+                        mContext,
+                        R.style.AlertDialogCustom_Destructive)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Delete Action
+                                sessionManager.logoutUser();
+                                if(LoginManager.getInstance() != null) {
+                                    LoginManager.getInstance().logOut();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Cancel Action
+                            }
+                        })
+                        .setTitle("Alert !")
+                        .create();
+                alertDialog.setMessage("Are you sure do you want to logout ?");
+                alertDialog.setCancelable(false);
+                alertDialog.show();
                 break;
             default:
                 break;

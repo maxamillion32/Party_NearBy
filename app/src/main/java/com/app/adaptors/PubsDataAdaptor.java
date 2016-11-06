@@ -147,7 +147,7 @@ public class PubsDataAdaptor extends RecyclerView.Adapter {
                 //Image URL - This can point to any image file supported by Android
                 final String url = Constant.ServiceType.IMAGE_BASE_URL+ev_img;
                 mImageLoader.get(url, ImageLoader.getImageListener(((PubsDataViewHolder) holder).thumbnail,
-                        R.drawable.bg, android.R.drawable
+                        R.drawable.ib_loading, android.R.drawable
                                 .ic_dialog_alert));
                 ((PubsDataViewHolder) holder).thumbnail.setImageUrl(url, mImageLoader);
             }

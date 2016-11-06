@@ -22,6 +22,7 @@ import com.app.partynearby.MainActivity;
 import com.app.partynearby.R;
 import com.app.partynearby.SettingsActivity;
 import com.app.utility.AppLog;
+import com.app.utility.SessionManager;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,11 +32,13 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
     List<NavDrawerItem> data = Collections.emptyList();
     private LayoutInflater inflater;
     private Context context;
+    private SessionManager sessionManager;
 
     public NavigationDrawerAdapter(Context context, List<NavDrawerItem> data) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.data = data;
+        sessionManager = new SessionManager(context);
     }
 
     public void delete(int position) {
@@ -52,7 +55,15 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        NavDrawerItem current = data.get(position);
+
+        NavDrawerItem current;
+        //current = data.get(position);
+        if (sessionManager.isLoggedIn()) {
+            current = data.get(position);
+        } else {
+            current = data.get(position);
+        }
+
         holder.title.setText(String.valueOf(current.getTitle()));
 
         AppLog.Log("img", current.getImageIcon() +"");
@@ -66,7 +77,14 @@ public class NavigationDrawerAdapter extends RecyclerView.Adapter<NavigationDraw
 
     @Override
     public int getItemCount() {
-        return data.size();
+
+        if(sessionManager.isLoggedIn()) {
+            return data.size();
+        } else {
+            return data.size() - 1;
+        }
+
+        //return data.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

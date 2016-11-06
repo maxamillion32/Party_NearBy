@@ -69,7 +69,6 @@ public class AuthorizationWebServices {
                                         String dob, String annivDate, String viaGoogle, String viaFb, boolean isTearms) {
 
         JSONObject reqObj = new JSONObject();
-        JSONObject merged = new JSONObject();
 
         try {
             reqObj.put(Constant.KeyConstant.FIRST_NAME, fname);

@@ -103,7 +103,7 @@ public class NearByAdaptor  extends RecyclerView.Adapter {
             EventListItem singleNewItem=  medicineList.get(position);
 
             ((PubsDataViewHolder) holder).title.setText(String.valueOf(singleNewItem.getEventName()));
-            ((PubsDataViewHolder) holder).thumbnail.setBackgroundResource(R.drawable.bg);
+            ((PubsDataViewHolder) holder).thumbnail.setBackgroundResource(R.drawable.ib_loading);
 
 
         }
